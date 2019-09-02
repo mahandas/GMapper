@@ -1,0 +1,45 @@
+<!DOCTYPE html><html class=''>
+<head>
+</head>
+<body>
+{% extends "master.html" %}
+{% block content %}
+	<li><a id="securitybug" href=""></a></li>
+	<p id="demo"></p>
+	<div>
+    <p style="text-align:center;">I am the Disclaimer. Please allow me to access your location. </p>
+	</div>
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+	<script type="text/javascript">
+	var socket = io.connect('http://' + document.domain + ':' + location.port);
+	var ulocal0 = {lat: -25.344, lng: 131.036};
+	var x = document.getElementById("demo");
+	function getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		  } else { 
+			x.innerHTML = "Geolocation is not supported by this browser.";
+		  }
+		}
+
+	function showPosition(position) {
+		ulocal0.lat = position.coords.latitude;
+		ulocal0.lng = position.coords.longitude;
+		<!-- socket.emit( 'setmeup', { -->
+				<!-- latty : ulocal0.lat, -->
+				<!-- longy : ulocal0.lng -->
+			<!-- } ); -->
+	    $("#securitybug").attr("href", 'http://' + document.domain + ':' + location.port + '/MapApp/' + ulocal0.lat + '/' + ulocal0.lng );
+		$('#securitybug')[0].click();
+		}
+
+	getLocation();
+	</script>
+	
+
+{% endblock %}
+
+</body>
+</html>
